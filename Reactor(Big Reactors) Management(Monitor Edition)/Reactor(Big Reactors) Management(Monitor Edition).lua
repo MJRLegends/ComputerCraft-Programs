@@ -81,7 +81,7 @@ function initPeripherals()
 	
 	reactors = {}
 	reactorsManagement = {}
-	
+	monitorFound = false
     for i=1,#perList,1 do
         if peripheral.getType(perList[i]) == "monitor" and monitorFound == false then
 			monitor = peripheral.wrap(perList[i])
@@ -89,8 +89,6 @@ function initPeripherals()
 			term.write("Monitor Found!")
 			yLevel = yLevel + 1
 			monitorFound = true
-        else
-			monitorFound = false
 		end
         if peripheral.getType(perList[i]) == "BigReactors-Reactor" then
 			table.insert(reactors, reactorNumber, perList[i])

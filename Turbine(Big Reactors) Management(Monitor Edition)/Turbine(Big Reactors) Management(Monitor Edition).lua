@@ -69,7 +69,7 @@ function initPeripherals()
 	
 	turbines = {}
 	turbinesManagement = {}
-	
+	monitorFound = false
 	term.setTextColor(colors.yellow)
     for i=1,#perList,1 do
         if peripheral.getType(perList[i]) == "monitor" and monitorFound == false then
@@ -78,8 +78,6 @@ function initPeripherals()
 			term.write("Monitor Found!")
 			yLevel = yLevel + 1
 			monitorFound = true
-        else
-			monitorFound = false
 		end
         if peripheral.getType(perList[i]) == "BigReactors-Turbine" then
 			table.insert(turbines, turbineNumber, perList[i])
