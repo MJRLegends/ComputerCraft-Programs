@@ -78,8 +78,10 @@ function initPeripherals()
 	local yLevel = 6
 	local reactorNumber = 1
 	term.setTextColor(colors.yellow)
+	
 	reactors = {}
 	reactorsManagement = {}
+	
     for i=1,#perList,1 do
         if peripheral.getType(perList[i]) == "monitor" and monitorFound == false then
 			monitor = peripheral.wrap(perList[i])

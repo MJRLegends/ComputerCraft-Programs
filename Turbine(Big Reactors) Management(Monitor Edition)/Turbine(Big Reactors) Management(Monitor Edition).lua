@@ -1,5 +1,5 @@
 ----------- Made BY MJRLegends (Please dont claim as your own code) ----------- 
-version = "2.2.7"
+version = "2.3.0"
 
 mouseWidth = 0
 mouseHeight = 0
@@ -7,6 +7,7 @@ mouseHeight = 0
 currentTurbine = 1
 setting = false
 control = false
+monitorFound = false
 
 turbines = {}
 turbinesManagement = {}
@@ -41,19 +42,34 @@ function draw_text(x, y, text, text_color, bg_color)
 end
 
 function terminalOutput()
+	term.clear()
 	term.setBackgroundColor(colors.black)
+	
 	term.setTextColor(colors.blue)
 	term.setCursorPos(1,1)
 	term.write("MJRLegends Turbine Management (Monitor Edition)")
+	
+	term.setTextColor(colors.lime)
 	term.setCursorPos(1,2)
 	term.write("Version: " .. version)
+	
+	term.setTextColor(colors.red)
+	term.setCursorPos(1,3)
+	term.write("Note: Monitors are optional")
+	
+	term.setTextColor(colors.cyan)
+	term.setCursorPos(1,5)
+	term.write("Peripheral Connected:")
 end
 
 function initPeripherals()
     local perList = peripheral.getNames()
-	local yLevel = 3
+	local yLevel = 6
 	local turbineNumber = 1
-	local monitorFound = false
+	
+	turbines = {}
+	turbinesManagement = {}
+	
 	term.setTextColor(colors.yellow)
     for i=1,#perList,1 do
         if peripheral.getType(perList[i]) == "monitor" and monitorFound == false then
@@ -62,7 +78,9 @@ function initPeripherals()
 			term.write("Monitor Found!")
 			yLevel = yLevel + 1
 			monitorFound = true
-        end
+        else
+			monitorFound = false
+		end
         if peripheral.getType(perList[i]) == "BigReactors-Turbine" then
 			table.insert(turbines, turbineNumber, perList[i])
 			table.insert(turbinesManagement, turbineNumber, true)
@@ -385,24 +403,30 @@ end
 function mainMenu()
 	terminalOutput()
 	initPeripherals()
-	monitor.setTextScale(1)
+	if monitorFound == true then
+		monitor.setTextScale(1)
+	end
 	while true do
-		displayW,displayH=monitor.getSize()
-		if displayH == 26 and displayW == 39 then
-			if control == true then
-				drawControlScreen()
-				if setting == true then
-					drawSettingScreen()
-				else 
-					drawDisplayScreen()
+		if monitorFound == true then
+			displayW,displayH=monitor.getSize()
+			if displayH == 26 and displayW == 39 then
+				if control == true then
+					drawControlScreen()
+					if setting == true then
+						drawSettingScreen()
+					else 
+						drawDisplayScreen()
+					end
+				else
+					drawMainScreen()
 				end
+				management()
 			else
-				drawMainScreen()
+				print("This program is built for a 4x4 monitor only!")
+				return
 			end
-			management()
 		else
-			print("This program is built for a 4x4 monitor only!")
-			return
+			management()
 		end
 		sleep(0.5)
 	end
@@ -412,9 +436,15 @@ function events()
 	while true do
 		event,p1,p2,p3 = os.pullEvent()
 		if event=="monitor_touch" then
-				mouseWidth = p2 -- sets mouseWidth
-				mouseHeight = p3 -- and mouseHeight
-				checkClickPosition() -- this runs our function
+			mouseWidth = p2 -- sets mouseWidth
+			mouseHeight = p3 -- and mouseHeight
+			checkClickPosition() -- this runs our function
+		elseif event=="peripheral" then
+			terminalOutput()
+			initPeripherals()
+		elseif event=="peripheral_detach" then
+			terminalOutput()
+			initPeripherals()
 		end
 	end
 end
