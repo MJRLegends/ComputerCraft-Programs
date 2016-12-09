@@ -73,17 +73,25 @@ function terminalOutput()
 	term.write("Version: " .. version)
 	
 	term.setTextColor(colors.red)
-	term.setCursorPos(1,3)
-	term.write("Note: Monitors are optional")
+	term.setCursorPos(1,4)
+	term.write("Important Infomation:")
+	
+	term.setTextColor(colors.white)
+	term.setCursorPos(1,5)
+	term.write("- Multi Reactor & Monitor support!")
+	term.setCursorPos(1,6)
+	term.write("- No Monitors support for compact control!")
+	term.setCursorPos(1,7)
+	term.write("- Auto detect for added & removed peripheral!")
 	
 	term.setTextColor(colors.cyan)
-	term.setCursorPos(1,5)
+	term.setCursorPos(1,9)
 	term.write("Peripheral Connected:")
 end
 
 function initPeripherals()
     local perList = peripheral.getNames()
-	local yLevel = 6
+	local yLevel = 10
 	local reactorNumber = 1
 	local monitorNumber = 1
 	term.setTextColor(colors.yellow)
