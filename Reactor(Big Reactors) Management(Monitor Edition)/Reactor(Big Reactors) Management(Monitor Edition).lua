@@ -89,6 +89,8 @@ function initPeripherals()
 	term.setTextColor(colors.yellow)
 	
 	monitors = {}
+	monitorsCurrentReactor = {}
+	monitorsCurrentScreen = {}
 	reactors = {}
 	reactorsManagement = {}
 
@@ -193,7 +195,7 @@ function drawMainScreen(monitorName, reactorNumber)
 	monitor.setBackgroundColor(colours.black)
 end
 
-function drawControlScreen(monitorName, reactorNumber)
+function drawControlScreen(monitorName, reactorNumber, screenNumber)
 	local monitor = peripheral.wrap(monitorName)
 	local currentReactor = peripheral.wrap(reactors[reactorNumber + 1])
 	
@@ -264,13 +266,13 @@ function drawControlScreen(monitorName, reactorNumber)
 	monitor.setTextColour(colours.white)
 	
 	-----------Bottom Bar Buttons---------------------
-	if monitorsCurrentScreen[reactorNumber + 1] == "2" then
+	if tonumber(monitorsCurrentScreen[screenNumber]) == 2 then
 		draw_text(displayW - 25,displayH - 1, " Control Rods ", colors.white, colours.grey, monitor)
 	else
 		draw_text(displayW - 25,displayH - 1, " Control Rods ", colors.white, colours.blue, monitor)
 	end
 
-	if monitorsCurrentScreen[reactorNumber + 1] == "3" then
+	if tonumber(monitorsCurrentScreen[screenNumber]) == 3 then
 		draw_text(displayW - 10,displayH - 1, " Settings ", colors.white, colours.grey, monitor)
 	else
 		draw_text(displayW - 10,displayH - 1, " Settings ", colors.white, colours.blue, monitor)
@@ -497,7 +499,7 @@ function drawSettingScreen(monitorName, reactorNumber)
 		monitor.setTextColour(colours.blue)
 		monitor.write("Max Fluid Tank Level:", monitor)
 		monitor.setTextColour(colours.white)
-		draw_text(22, 10, maxFluidTank.." mb", colors.white, colors.black)
+		draw_text(22, 10, maxFluidTank.." mb", colors.white, colors.black, monitor)
 
 		monitor.setBackgroundColour(colours.blue)
 
@@ -621,14 +623,14 @@ function drawSettingScreen(monitorName, reactorNumber)
 	else
 		monitor.setCursorPos(1,14)
 		monitor.setTextColour(colours.blue)
-		monitor.write("Steam Management Levels: ")
+		monitor.write("Steam Management Levels: ", monitor)
 
 		monitor.setCursorPos(1,15)
 		monitor.setTextColour(colours.yellow)
-		monitor.write("Min Level:")
+		monitor.write("Min Level:", monitor)
 		monitor.setTextColour(colours.white)
 		local value = minLevelSteam
-		draw_text(12, 15, value.." mb", colors.white, colors.black)
+		draw_text(12, 15, value.." mb", colors.white, colors.black, monitor)
 		monitor.setBackgroundColour(colours.blue)
 		
 		--Higher Values
@@ -661,10 +663,10 @@ function drawSettingScreen(monitorName, reactorNumber)
 		
 		monitor.setCursorPos(1,18)
 		monitor.setTextColour(colours.yellow)
-		monitor.write("Max Level:")
+		monitor.write("Max Level:", monitor)
 		monitor.setTextColour(colours.white)
 		local value = maxLevelSteam
-		draw_text(12, 18, value.." mb", colors.white, colors.black)
+		draw_text(12, 18, value.." mb", colors.white, colors.black, monitor)
 		
 		monitor.setBackgroundColour(colours.blue)
 		monitor.setCursorPos(1,19)
@@ -728,7 +730,6 @@ function checkClickPosition(peripheralName)
 	if mouseWidth > 1 and mouseWidth < displayW and mouseHeight > displayH - 3 and mouseHeight < displayH then
 		if tonumber(monitorsCurrentScreen[index]) == 0 then
 			monitorsCurrentScreen[index] = "1"
-			sleep(1.0)
 		end
 	end	
 	if mouseWidth > 20 and mouseWidth < 24 and mouseHeight == 3 then
@@ -738,39 +739,30 @@ function checkClickPosition(peripheralName)
 	elseif mouseWidth > 1 and mouseWidth < (displayW - 26) and mouseHeight == (displayH - 1) then
 		if tonumber(monitorsCurrentScreen[index]) > 0 then
 			monitorsCurrentScreen[index] = "0"
-			sleep(1.0)
 		end
 	elseif mouseWidth > (displayW - 25) and mouseWidth < (displayW - 10) and mouseHeight == (displayH - 1) then
 		if tonumber(monitorsCurrentScreen[index]) == 1 then
 			monitorsCurrentScreen[index] = "2"
-			sleep(1.0)
 		elseif tonumber(monitorsCurrentScreen[index]) == 2 then
 			monitorsCurrentScreen[index] = "1"
-			sleep(1.0)
 		elseif tonumber(monitorsCurrentScreen[index]) == 3 then
 			monitorsCurrentScreen[index] = "2"
-			sleep(1.0)
 		end
 	elseif mouseWidth > (displayW - 10) and mouseWidth < displayW and mouseHeight == (displayH - 1) then
 		if tonumber(monitorsCurrentScreen[index]) == 1 then
 			monitorsCurrentScreen[index] = "3"
-			sleep(1.0)
 		elseif tonumber(monitorsCurrentScreen[index]) == 3 then
 			monitorsCurrentScreen[index] = "1"
-			sleep(1.0)
 		elseif tonumber(monitorsCurrentScreen[index]) == 2 then
 			monitorsCurrentScreen[index] = "3"
-			sleep(1.0)
 		end
 	elseif mouseWidth > (displayW - 9) and mouseWidth < (displayW - 7) and mouseHeight == 1 then
 		if monitorsCurrentReactor[index] > 0 then
 			monitorsCurrentReactor[index] = monitorsCurrentReactor[index] - 1
-			sleep(1.0)
 		end
 	elseif mouseWidth > (displayW - 6) and mouseWidth < (displayW - 4) and mouseHeight == 1 then
 		if monitorsCurrentReactor[index] < table.getn(reactors) - 1	then
 			monitorsCurrentReactor[index] = monitorsCurrentReactor[index] + 1
-			sleep(1.0)
 		end
 	end
 	
@@ -1162,7 +1154,7 @@ function checkClickPosition(peripheralName)
 			end
 		end
 	end
-	sleep(0.5)
+	sleep(1.0)
 end
 
 function mainMenu()
@@ -1177,13 +1169,13 @@ function mainMenu()
 					if monitorsCurrentScreen[i] == "0" then
 						drawMainScreen(monitors[i], monitorsCurrentReactor[i])
 					elseif monitorsCurrentScreen[i] == "1" then
-						drawControlScreen(monitors[i], monitorsCurrentReactor[i])
+						drawControlScreen(monitors[i], monitorsCurrentReactor[i], i)
 						drawDisplayScreen(monitors[i], monitorsCurrentReactor[i])
 					elseif monitorsCurrentScreen[i] == "2" then
-						drawControlScreen(monitors[i], monitorsCurrentReactor[i])
+						drawControlScreen(monitors[i], monitorsCurrentReactor[i], i)
 						drawRodScreen(monitors[i], monitorsCurrentReactor[i])
 					elseif monitorsCurrentScreen[i] == "3" then
-						drawControlScreen(monitors[i], monitorsCurrentReactor[i])
+						drawControlScreen(monitors[i], monitorsCurrentReactor[i], i)
 						drawSettingScreen(monitors[i], monitorsCurrentReactor[i])
 					end
 				end
@@ -1201,7 +1193,6 @@ function events()
 	while true do
 		event,p1,p2,p3 = os.pullEvent()
 		if event=="monitor_touch" then
-			print(p1)
 			mouseWidth = p2 -- sets mouseWidth
 			mouseHeight = p3 -- and mouseHeight
 			checkClickPosition(p1) -- this runs our function
