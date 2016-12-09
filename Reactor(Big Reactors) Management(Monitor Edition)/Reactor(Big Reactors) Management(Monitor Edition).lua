@@ -727,12 +727,14 @@ function checkClickPosition(peripheralName)
 				index = i
 			end
 		end
-	if mouseWidth > 1 and mouseWidth < displayW and mouseHeight > displayH - 3 and mouseHeight < displayH then
-		if tonumber(monitorsCurrentScreen[index]) == 0 then
-			monitorsCurrentScreen[index] = "1"
+		
+	if tonumber(monitorsCurrentScreen[index]) == 0 then
+		if mouseWidth > 1 and mouseWidth < displayW and mouseHeight > displayH - 3 and mouseHeight < displayH then
+			if tonumber(monitorsCurrentScreen[index]) == 0 then
+				monitorsCurrentScreen[index] = "1"
+			end
 		end
-	end	
-	if mouseWidth > 20 and mouseWidth < 24 and mouseHeight == 3 then
+	elseif mouseWidth > 20 and mouseWidth < 24 and mouseHeight == 3 then
 		peripheral.wrap(""..reactors[monitorsCurrentReactor[index]+ 1]).setActive(true)
 	elseif mouseWidth > 24 and mouseWidth < 28 and mouseHeight == 3 then
 		peripheral.wrap(""..reactors[monitorsCurrentReactor[index]+ 1]).setActive(false)
@@ -764,9 +766,7 @@ function checkClickPosition(peripheralName)
 		if monitorsCurrentReactor[index] < table.getn(reactors) - 1	then
 			monitorsCurrentReactor[index] = monitorsCurrentReactor[index] + 1
 		end
-	end
-	
-	if tonumber(monitorsCurrentScreen[index]) == 2 then
+	elseif tonumber(monitorsCurrentScreen[index]) == 2 then
 		if mouseWidth > 9 and mouseWidth < 12 and mouseHeight == 11 then
 			if rodNumber == numberOfControlRods - 1 then
 				rodNumber = numberOfControlRods - 1
@@ -1192,6 +1192,7 @@ end
 function events()
 	while true do
 		event,p1,p2,p3 = os.pullEvent()
+		print(event)
 		if event=="monitor_touch" then
 			mouseWidth = p2 -- sets mouseWidth
 			mouseHeight = p3 -- and mouseHeight
