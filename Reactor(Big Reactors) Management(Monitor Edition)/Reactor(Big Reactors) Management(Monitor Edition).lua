@@ -1192,7 +1192,6 @@ end
 function events()
 	while true do
 		event,p1,p2,p3 = os.pullEvent()
-		print(event)
 		if event=="monitor_touch" then
 			mouseWidth = p2 -- sets mouseWidth
 			mouseHeight = p3 -- and mouseHeight
