@@ -5,7 +5,7 @@ A collection of ComputerCraft programs
 1. Setup a 4x4 Monitor (Needed for most of my programs)
 2. Setup a Advanced Computer
 3. Link all together with modems/network cable (if needed)
-4. Link peripheral program is for, e.g Reactor
+4. Link peripheral required for the program wanted, e.g Reactor
 5. Type "pastebin get EU8Ja3Hq install"
 6. Run the install program in Advanced Computer
 7. Follow on screen instructions in Advanced Computer
