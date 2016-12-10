@@ -82,11 +82,11 @@ function terminalOutput()
 	term.setCursorPos(1,6)
 	term.write("- No Monitors support for compact control!")
 	term.setCursorPos(1,7)
-	term.write("- Auto detect for added & removed peripheral!")
+	term.write("- Auto detect for added & removed peripherals!")
 	
 	term.setTextColor(colors.cyan)
 	term.setCursorPos(1,9)
-	term.write("Peripheral Connected:")
+	term.write("Peripherals Connected:")
 end
 
 function initPeripherals()
