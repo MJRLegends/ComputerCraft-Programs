@@ -1,7 +1,7 @@
 # ComputerCraft Programs
 A collection of ComputerCraft programs
 
-#How to Install
+# How to Install
 1. Setup a 4x4 Monitor (Needed for most of my programs)
 2. Setup a Advanced Computer
 3. Link all together with modems/network cable (if needed)
