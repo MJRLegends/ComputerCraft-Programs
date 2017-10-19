@@ -19,7 +19,7 @@ while true do
 
 	mon.setCursorPos(1,4)
 	mon.setTextColor(colors.white)
-	if reactor1.isActivelyCooled then
+	if reactor1.isActivelyCooled() then
 		mon.write("RF/T: ")
 	else
 		mon.write("Hot Fluid/T: ")
@@ -70,7 +70,7 @@ while true do
 	mon.setTextColor(colors.lime)
 	mon.write(reactor1.getFuelConsumedLastTick())
 	
-	if reactor1.isActivelyCooled()then
+	if reactor1.isActivelyCooled() then
 		mon.setCursorPos(1,18)
 		mon.setTextColor(colors.white)
 		mon.write("Water Tank: ")
