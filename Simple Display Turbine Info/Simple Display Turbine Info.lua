@@ -20,7 +20,7 @@ while true do
   mon.setCursorPos(1,4)
   mon.setTextColor(colors.white)
   mon.write("RF/T: ")  
-   mon.setCursorPos(1,5)
+  mon.setCursorPos(1,5)
   mon.setTextColor(colors.lime)
   mon.write(math.floor(turbine.getEnergyProducedLastTick()))
  
