@@ -44,27 +44,36 @@ function initPeripherals()
 	tower = peripheral.wrap(towers[currentTower])
 end
 
-function drawControlScreen()
+function drawTitle()
+	monitor.setTextColour((colours.blue))
+	monitor.setCursorPos(1,1)
+	monitor.write("MJRLegends Thermal Evaporation Display")
+	monitor.setTextColour((colours.white))
+	
+	displayW,displayH=monitor.getSize()
+	monitor.setTextColour((colours.blue))
+	monitor.setCursorPos(0,2)
+    monitor.write(string.rep("-", displayW))
+end
+
+function drawConsoleHeader()
 	term.setBackgroundColor(colors.black)
 	term.setTextColor(colors.blue)
 	term.setCursorPos(1,1)
 	term.write("MJRLegends Thermal Evaporation Display")
 	term.setCursorPos(1,2)
 	term.write("Version: " .. version)
+end
+
+function drawControlScreen()
+	drawConsoleHeader()
 	monitor.setTextScale(1)
 	monitor.clear()
 	
 	-----------Title---------------------
-	monitor.setTextColour((colours.blue))
-	monitor.setCursorPos(1,1)
-	monitor.write("MJRLegends Thermal Evaporation Display")
-	monitor.setTextColour((colours.white))
+	drawTitle()
 	-----------Section Lines---------------------
 	displayW,displayH=monitor.getSize()
-	
-	monitor.setTextColour((colours.blue))
-	monitor.setCursorPos(0,2)
-    monitor.write(string.rep("-", displayW))
 	
 	monitor.setCursorPos(0,4)
     monitor.write(string.rep("-", displayW))
@@ -176,6 +185,7 @@ end
 
 function mainMenu()
 	initPeripherals()
+	drawConsoleHeader()
 	while true do
 		displayW,displayH=monitor.getSize()
 		if displayH == 26 and displayW == 39 then

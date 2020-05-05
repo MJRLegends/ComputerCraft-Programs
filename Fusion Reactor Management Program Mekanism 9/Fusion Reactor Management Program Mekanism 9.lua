@@ -46,23 +46,35 @@ function initPeripherals()
     end
 end
 
-function drawControlScreen()
+function drawTitle()
+	monitor.setTextColour((colours.blue))
+	monitor.setCursorPos(1,1)
+	monitor.write("MJRLegends Fusion Reactor Management")
+	monitor.setTextColour((colours.white))
+	
+	displayW,displayH=monitor.getSize()
+	monitor.setTextColour((colours.blue))
+	monitor.setCursorPos(0,2)
+    monitor.write(string.rep("-", displayW))
+end
+
+function drawConsoleHeader()
     term.setBackgroundColor(colors.black)
     term.setTextColor(colors.blue)
     term.setCursorPos(1,1)
     term.write("MJRLegends Fusion Reactor Management")
     term.setCursorPos(1,2)
     term.write("Version: " .. version)
+end
+
+function drawControlScreen()
+	drawConsoleHeader()
 	monitor.setTextScale(1)
 	monitor.clear()
 	active = reactor.isIgnited()
 	
 	-----------Title---------------------
-	monitor.setTextColour((colours.blue))
-	monitor.setCursorPos(1,1)
-	monitor.write("MJRLegends Fusion Reactor Management")
-	monitor.setTextColour((colours.white))
-	
+	drawTitle()	
 	-----------Reactor Enable/Disable---------------------
 	monitor.setCursorPos(1,3)
  	monitor.write("Reactor: ")
@@ -85,11 +97,6 @@ function drawControlScreen()
 
 	-----------Section Lines---------------------
 	displayW,displayH=monitor.getSize()
-	
-	monitor.setTextColour((colours.blue))
-	monitor.setCursorPos(0,2)
-    monitor.write(string.rep("-", displayW))
-	monitor.setTextColour((colours.white))
 	
 	monitor.setTextColour((colours.blue))
 	monitor.setCursorPos(0,4)
@@ -241,6 +248,7 @@ end
  
 function mainMenu()
 	initPeripherals()
+	drawConsoleHeader()
 	if reactor == nil then 
 		term.setCursorPos(1,4)
 		term.setTextColor(colors.red)
@@ -250,14 +258,12 @@ function mainMenu()
 		term.setTextColor(colors.red)
 		term.write("No Monitor Found!")
 	else
-		term.setCursorPos(1,2)
-		term.setTextColor(colors.blue)
-		term.write("Version: " .. version)
 		while true do
 			displayW,displayH=monitor.getSize()
 			if displayH == 26 and displayW == 39 then
 				if tonumber(reactor.getCaseHeat()) == nil then
-					draw_text(2, 5, "Fusion Reactor currently not formed!", colors.red, colors.black)
+					drawTitle()
+					draw_text(2, 3, "Fusion Reactor currently not formed!", colors.red, colors.black)
 				else
 					drawControlScreen()
 					if setting == true then
