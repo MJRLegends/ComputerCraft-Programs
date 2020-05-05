@@ -241,20 +241,30 @@ end
  
 function mainMenu()
 	initPeripherals()
-	while true do
-		displayW,displayH=monitor.getSize()
-		if displayH == 26 and displayW == 39 then
-			drawControlScreen()
-			if setting == true then
-				drawSettingScreen()
-			else 
-				drawDisplayScreen()
+	if reactor == nil then 
+		term.setCursorPos(1,4)
+		term.setTextColor(colors.red)
+		term.write("No Fusion Reactor Found!")
+	elseif  monitor == nil then 
+		term.setCursorPos(1,4)
+		term.setTextColor(colors.red)
+		term.write("No Monitor Found!")
+	else
+		while true do
+			displayW,displayH=monitor.getSize()
+			if displayH == 26 and displayW == 39 then
+				drawControlScreen()
+				if setting == true then
+					drawSettingScreen()
+				else 
+					drawDisplayScreen()
+				end
+			else
+				print("This program is built for a 4x4 monitor only!")
+				return
 			end
-		else
-			print("This program is built for a 4x4 monitor only!")
-			return
+			sleep(1.0)
 		end
-		sleep(1.0)
 	end
 end
 
