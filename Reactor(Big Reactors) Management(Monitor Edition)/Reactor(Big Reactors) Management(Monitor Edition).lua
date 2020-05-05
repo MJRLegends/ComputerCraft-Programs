@@ -1,5 +1,5 @@
 ----------- Made BY MJRLegends (Please dont claim as your own code) ----------- 
-version = "4.0.0"
+version = "4.0.1"
 
 -- Screen Numbers
 -- 0 - drawMainScreen()
@@ -789,14 +789,12 @@ function checkClickPosition(peripheralName)
 			end
 			
 			
-			
 		elseif mouseWidth > 8 and mouseWidth < 12 and mouseHeight == 13 then
 			if (rodLevel + 1) > 100 then
 				rodLevel = 100
 			else 
 				rodLevel = rodLevel + 1
 			end
-			rodLevel = rodLevel + 1
 			peripheral.wrap(""..reactors[monitorsCurrentReactor[index]+ 1]).setControlRodLevel(rodNumber, rodLevel)
 		elseif mouseWidth > 13 and mouseWidth < 17 and mouseHeight == 13 then
 			if (rodLevel + 5) > 100 then
