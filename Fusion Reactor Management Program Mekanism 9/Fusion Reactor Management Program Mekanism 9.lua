@@ -250,6 +250,9 @@ function mainMenu()
 		term.setTextColor(colors.red)
 		term.write("No Monitor Found!")
 	else
+		term.setCursorPos(1,2)
+		term.setTextColor(colors.blue)
+		term.write("Version: " .. version)
 		while true do
 			displayW,displayH=monitor.getSize()
 			if displayH == 26 and displayW == 39 then
