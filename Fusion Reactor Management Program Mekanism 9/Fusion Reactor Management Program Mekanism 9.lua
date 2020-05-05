@@ -38,6 +38,11 @@ function initPeripherals()
 			term.setCursorPos(1,4)
 			term.write("Fusion Reactor Found!")
         end
+		if peripheral.getType(perList[i]) == "Reactor Logic Adapter" then
+            reactor = peripheral.wrap(perList[i])
+			term.setCursorPos(1,4)
+			term.write("Fusion Reactor Found!")
+        end
     end
 end
 
