@@ -1,5 +1,5 @@
 ----------- Made BY MJRLegends (Please dont claim as your own code) -----------
------------ v1.5.1 -----------
+version = "1.5.1"
 
 --------------------------------------------------------------
 --You can change these:
@@ -29,6 +29,13 @@ validPeripherals = {
 	"Induction Matrix",
 	"Energy Cube"
 }
+term.setTextColor(colors.blue)
+term.setCursorPos(1,1)
+term.write("MJRLegends Energy Management")
+term.setCursorPos(1,2)
+term.write("Version: " .. version)
+term.setTextColor(colors.white)
+term.setCursorPos(1,3)
 
 function checkValidity(periName)
     for n,b in pairs(validPeripherals) do
