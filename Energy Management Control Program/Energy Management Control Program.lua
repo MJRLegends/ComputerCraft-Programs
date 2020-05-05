@@ -99,11 +99,15 @@ end
 
 --Check for storage cells and monitors before continuing
 if cellCount == 0 and OPCapBank == 0 then
+	term.setTextColor(colors.red)
     print("No RF storage found. Exiting script!")
+	term.setTextColor(colors.white)
     return
 end
 if monitorCount == 0 then
+	term.setTextColor(colors.red)
     print("No Monitor found. Exiting script!")
+	term.setTextColor(colors.white)
     return
 end
     --Compatibility with OpenPeripherals
@@ -127,7 +131,9 @@ for i = 1, #connectedMonitors do
     end
 end
 
+term.setTextColor(colors.green)
 print("Peripherals connected:")
+term.setTextColor(colors.white)
 if monitorCount > 1 then print(monitorCount.." Monitors") else print(monitorCount.." Monitor") end
 if TE4Cell ~= 1 then print(TE4Cell.." TE Energy Cells") else print(TE4Cell.." TE Energy Cell") end
 if Mekanism ~= 1 then print(Mekanism.." Mekanism Cubes/Induction Matrixs") else print(Mekanism.." Mekanism Cube/Induction Matrix") end
