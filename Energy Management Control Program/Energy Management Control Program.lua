@@ -25,7 +25,9 @@ validPeripherals = {
     "monitor",
     "BigReactors%-Turbine",
     "BigReactors%-Reactor",
-	"mekanism_machine"
+	"mekanism_machine",
+	"Induction Matrix",
+	"Energy Cube"
 }
 
 function checkValidity(periName)
@@ -68,6 +70,16 @@ for i,v in ipairs(periList) do
             reactor = peripheral.wrap(periList[i])
         end,
 		["mekanism_machine"] = function()
+            cellCount = cellCount + 1
+            Mekanism = Mekanism + 1
+            connectedMekanisms[cellCount] = periList[i]
+        end,
+		["Induction Matrix"] = function()
+            cellCount = cellCount + 1
+            Mekanism = Mekanism + 1
+            connectedMekanisms[cellCount] = periList[i]
+        end,
+		["Energy Cube"] = function()
             cellCount = cellCount + 1
             Mekanism = Mekanism + 1
             connectedMekanisms[cellCount] = periList[i]
