@@ -1,5 +1,5 @@
 ----------- Made BY MJRLegends (Please dont claim as your own code) ----------- 
-version = "1.5.0"
+version = "1.5.1"
 
 mouseWidth = 0
 mouseHeight = 0
