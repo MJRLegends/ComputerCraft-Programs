@@ -143,8 +143,13 @@ while true do
     end
 	for i = 1, #connectedMekanisms do
         cell = peripheral.wrap(connectedMekanisms[i])
-        eNow = eNow + (cell.getEnergyStored() / 2.5)
-        eMax = eMax + (cell.getMaxEnergyStored() / 2.5)
+		if cell.getEnergyStored then
+			eNow = eNow + (cell.getEnergyStored() / 2.5)
+			eMax = eMax + (cell.getMaxEnergyStored() / 2.5)
+		else
+			eNow = eNow + (cell.getEnergy() / 2.5)
+			eMax = eMax + (cell.getMaxEnergy() / 2.5)
+		end
         mekanismLoops = i
     end
     --Compatibility with OpenPeripherals
