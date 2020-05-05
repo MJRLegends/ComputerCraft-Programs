@@ -193,8 +193,14 @@ function mainMenu()
 	while true do
 		displayW,displayH=monitor.getSize()
 		if displayH == 26 and displayW == 39 then
-			drawControlScreen()
-			drawDisplayScreen()
+			if tower.getTemperature() == "Unformed." then
+				monitor.clear()
+				drawTitle()
+				draw_text(2, 3, "Not built correctly/fully!", colors.red, colors.black)
+			else
+				drawControlScreen()
+				drawDisplayScreen()
+			end
 		else
 			print("This program is built for a 4x4 monitor only!")
 			return
