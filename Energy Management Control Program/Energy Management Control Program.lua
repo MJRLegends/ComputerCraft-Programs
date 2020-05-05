@@ -1,5 +1,5 @@
 ----------- Made BY MJRLegends (Please dont claim as your own code) -----------
-version = "1.5.1"
+version = "1.5.2"
 
 --------------------------------------------------------------
 --You can change these:
