@@ -256,11 +256,15 @@ function mainMenu()
 		while true do
 			displayW,displayH=monitor.getSize()
 			if displayH == 26 and displayW == 39 then
-				drawControlScreen()
-				if setting == true then
-					drawSettingScreen()
-				else 
-					drawDisplayScreen()
+				if tonumber(reactor.getCaseHeat()) == nil then
+					draw_text(2, 5, "Fusion Reactor currently not formed!", colors.red, colors.black)
+				else
+					drawControlScreen()
+					if setting == true then
+						drawSettingScreen()
+					else 
+						drawDisplayScreen()
+					end
 				end
 			else
 				print("This program is built for a 4x4 monitor only!")
