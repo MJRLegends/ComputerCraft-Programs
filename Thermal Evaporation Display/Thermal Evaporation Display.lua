@@ -37,6 +37,10 @@ function initPeripherals()
         if peripheral.getType(perList[i]) == "Thermal Evaporation Block" then
             table.insert(towers, towerNumber, perList[i])
 			towerNumber = towerNumber + 1
+		end
+		if peripheral.getType(perList[i]) == "tile.BasicBlock.ThermalEvaporationBlock.name" then
+            table.insert(towers, towerNumber, perList[i])
+			towerNumber = towerNumber + 1
         end
     end
 	term.setCursorPos(1,4)
