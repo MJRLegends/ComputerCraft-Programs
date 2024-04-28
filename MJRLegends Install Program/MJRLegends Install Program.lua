@@ -1,5 +1,5 @@
 ----------- Made BY MJRLegends (Please dont claim as your own code) -----------
-version = "2.0.1"
+version = "2.0.2"
 
 --Main Programs
 reactorProgram = "CJMFJUEb"
@@ -8,6 +8,7 @@ tubineProgram = "jynMAHYQ"
 tubineProgramSmartHelmet = "MYk7Nz45"
 fusionreactorProgram = "pk8B7fAM"
 newFusionreactorProgram = "5nCJ4QZb"
+newFusionreactorProgram2 = "LShKv72C"
 energyProgram = "RYN6uUf7"
 thermalEvaporationProgram = "9txmi9Q4"
 railcraftTanksProgram = "cN7scp9W"
@@ -102,14 +103,15 @@ function mainMenu()
 		print("3 - Turbine Management(BR/Monitor Edition)")
 		print("4 - Turbine Management(BR/Smart Helmet Edition)")
 		print("5 - Fusion Reactor Management(Mekanism 8)")
-		print("6 - Fusion Reactor Management(Mekanism 9+)")
-		print("7 - Energy Management")
-		print("8 - Thermal Evaporation Display (Mekanism 9+)")
-		print("9 - RailCraft Tanks Display")
+		print("6 - Fusion Reactor Management(Mekanism 9)")
+		print("7 - Fusion Reactor Management(Mekanism 10+)")
+		print("8 - Energy Management")
+		print("9 - Thermal Evaporation Display (Mekanism 9+)")
+		print("10 - RailCraft Tanks Display")
 		term.setTextColor(colors.yellow)
-		print("10 - Versions")
+		print("11- Versions")
 		term.setTextColor(colors.lime)
-		print("11 - Other Programs")
+		print("12- Other Programs")
 		term.setTextColor(colors.cyan)
 
 		selection = read()
@@ -174,7 +176,7 @@ function mainMenu()
 		if fs.exists("startup") then
 			fs.delete("startup")
 		end
-		shell.run("pastebin get " .. energyProgram .. " startup")
+		shell.run("pastebin get " .. newFusionreactorProgram2 .. " startup")
 		print("Installed!")
 		print("Restart the computer using (Ctrl + R)!")
 		addToCurrentVersions()
@@ -183,7 +185,7 @@ function mainMenu()
 		if fs.exists("startup") then
 			fs.delete("startup")
 		end
-		shell.run("pastebin get " .. thermalEvaporationProgram .. " startup")
+		shell.run("pastebin get " .. energyProgram .. " startup")
 		print("Installed!")
 		print("Restart the computer using (Ctrl + R)!")
 		addToCurrentVersions()
@@ -192,12 +194,21 @@ function mainMenu()
 		if fs.exists("startup") then
 			fs.delete("startup")
 		end
-		shell.run("pastebin get " .. railcraftTanksProgram .. " startup")
+		shell.run("pastebin get " .. thermalEvaporationProgram .. " startup")
 		print("Installed!")
 		print("Restart the computer using (Ctrl + R)!")
 		addToCurrentVersions()
 		return
 	elseif selection == "10" then
+		if fs.exists("startup") then
+			fs.delete("startup")
+		end
+		shell.run("pastebin get " .. railcraftTanksProgram .. " startup")
+		print("Installed!")
+		print("Restart the computer using (Ctrl + R)!")
+		addToCurrentVersions()
+		return
+	elseif selection == "11" then
 		if fs.exists("versions.txt") then
 			fs.delete("versions.txt")
 		end
@@ -261,7 +272,7 @@ function mainMenu()
 			selection = 0
 			mainMenu()
 		end
-	elseif selection == "11" then
+	elseif selection == "12" then
 		otherPrograms()
 	else
 		print("Unknown Program!")
